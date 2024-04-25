@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import models.Account;
 import rmi.LocalMaster;
 import services.BranchesService;
 
@@ -172,7 +173,10 @@ public class SignUpFrame extends javax.swing.JFrame {
             String masterName = BranchesService.isWestBranch(branch) ? "WestLocalMaster" : "EastLocalMaster";
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             LocalMaster master = (LocalMaster) registry.lookup(masterName);
-            master.createAccount(name, email, password, branch);
+            Account account =  master.createAccount(name, email, password, branch);
+            new MainFrame(account).setVisible(true);
+            this.setVisible(false);
+            this.dispose();
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface LocalMaster extends Remote {
-    Account login(String id, String email, String password) throws RemoteException;
+    Account login(String branch, String email, String password) throws RemoteException;
 
     Account createAccount(String name, String email, String password, String branch) throws RemoteException;
 

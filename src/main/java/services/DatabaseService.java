@@ -65,20 +65,12 @@ public class DatabaseService {
         return accounts;
     }
 
-    public Map<String, Transaction> getWorkerTransactions(String id) {
+    public Map<String, Transaction> getAccountTransactions(String id) {
         Map<String, Transaction> transactions = this.transactions.get(id);
         if (transactions == null)
             transactions = new HashMap<>();
 
         return transactions;
-    }
-
-    public List<Transaction> getWorkerTransactions(String id, String clientId) {
-        return getWorkerTransactions(id)
-                .values()
-                .stream()
-                .filter(t -> t.getAccountId().equals(clientId))
-                .toList();
     }
 
     public void addAccount(String workerId, Account account) {

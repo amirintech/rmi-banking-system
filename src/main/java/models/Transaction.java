@@ -54,8 +54,30 @@ public class Transaction implements Serializable {
     }
 
     public enum TransactionAction {
-        DEPOSIT,
-        WITHDRAW,
-        INQUIRY
+        DEPOSIT("Deposit"),
+        WITHDRAW("Withdraw"),
+        INQUIRY("Inquiry");
+
+        private final String value;
+
+        TransactionAction(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id='" + id + '\'' +
+                ", timestamp=" + timestamp +
+                ", action=" + action +
+                ", accountId='" + accountId + '\'' +
+                ", currentBalance=" + currentBalance +
+                ", amount=" + amount +
+                '}';
     }
 }

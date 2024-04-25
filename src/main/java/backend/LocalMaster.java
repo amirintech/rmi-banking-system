@@ -25,8 +25,8 @@ public class LocalMaster extends UnicastRemoteObject implements rmi.LocalMaster 
     }
 
     @Override
-    public Account login(String id, String email, String password) throws RemoteException {
-        WorkerServer workerServer = getWorkerFromClientId(id);
+    public Account login(String branch, String email, String password) throws RemoteException {
+        WorkerServer workerServer = getWorkerByBranch(branch);
         return workerServer.login(email, password);
     }
 

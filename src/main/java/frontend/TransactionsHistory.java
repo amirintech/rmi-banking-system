@@ -1,20 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package frontend;
 
-/**
- *
- * @author amir
- */
-public class TransactionsHistory extends javax.swing.JFrame {
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import models.Account;
+import models.Transaction;
 
-    /**
-     * Creates new form TransactionsHistory
-     */
-    public TransactionsHistory() {
+
+public class TransactionsHistory extends javax.swing.JFrame {
+    private List<Transaction> transactions;
+    private Account account;
+    
+    public TransactionsHistory(List<Transaction> transactions, Account account) {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        this.transactions = transactions;
+        this.account = account;
+        
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        
+        this.transactions = this.transactions
+                .stream()
+                .sorted((e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()))
+                                         .collect(Collectors.toList());
+        
+        System.out.println(this.transactions);
+        
+        for (var t: this.transactions) {
+            var panel = new TransactionPanel(t);
+            container.add(panel);
+        }
+        
+        transactionsPanel.setViewportView(container);
+        transactionsPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        transactionsPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
 
     /**
@@ -26,21 +50,56 @@ public class TransactionsHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        transactionsPanel = new javax.swing.JScrollPane();
+        backBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setText("Transactions History");
+
+        backBtn.setText("< dashboard");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(backBtn)
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel1))
+                    .addComponent(transactionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(backBtn))
+                .addGap(25, 25, 25)
+                .addComponent(transactionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        new MainFrame(account).setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,11 +131,14 @@ public class TransactionsHistory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TransactionsHistory().setVisible(true);
+                // new TransactionsHistory().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane transactionsPanel;
     // End of variables declaration//GEN-END:variables
 }

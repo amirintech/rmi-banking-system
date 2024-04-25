@@ -20,10 +20,12 @@ public class WorkerServer {
     }
 
     public Account login(String email, String password) {
-        Account account = clients.get(email);
-        if (account.getPassword().equals(password)) return account;
+        Account account = null;
+        for (var acc : clients.values())
+            if (acc.getEmail().equals(email) && acc.getPassword().equals(password))
+                account = acc;
 
-        return null;
+        return account;
     }
 
     public Account createAccount(String name, String email, String password) {
@@ -61,7 +63,11 @@ public class WorkerServer {
     }
 
     public List<Transaction> inquiry(String clientId) {
-        return databaseService.getWorkerTransactions(id, clientId);
+        return databaseService
+                .getAccountTransactions(clientId)
+                .values()
+                .stream()
+                .toList();
     }
 
     public String getId() {
