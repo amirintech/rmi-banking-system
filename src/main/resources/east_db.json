@@ -1,0 +1,23 @@
+{
+  "accounts": {
+    "Cairo": {
+      "Cairo:e9241ac4-b255-4d4b-8475-906fc4518f5a": {
+        "id": "Cairo:e9241ac4-b255-4d4b-8475-906fc4518f5a",
+        "name": "amir0000000",
+        "email": "amir@gmail.com",
+        "password": "mavideniz",
+        "balance": 0.0
+      }
+    },
+    "Dubai": {
+      "Dubai:0aaea4e2-cb30-45ca-9001-a85186821ded": {
+        "id": "Dubai:0aaea4e2-cb30-45ca-9001-a85186821ded",
+        "name": "amir0000000",
+        "email": "amir@gmail.com",
+        "password": "mavideniz",
+        "balance": 0.0
+      }
+    }
+  },
+  "transactions": {}
+}
