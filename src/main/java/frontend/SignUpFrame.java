@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.UIManager;
 import models.Account;
 import rmi.LocalMaster;
 import services.BranchesService;
@@ -18,10 +19,18 @@ import services.BranchesService;
 
 public class SignUpFrame extends javax.swing.JFrame {
     public SignUpFrame() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         initComponents();
         
         setLocationRelativeTo(null);
         populateBranches();
+        
+        
     }
     
     private void populateBranches() {

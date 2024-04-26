@@ -6,6 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import models.Account;
 import models.Transaction;
 import rmi.LocalMaster;
@@ -164,7 +165,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
         try {
-            Transaction transaction = master.deposit(account.getId(), 99);
+            String response = JOptionPane.showInputDialog(null, "Enter the amount you wish to deposit:", "Amount", JOptionPane.QUESTION_MESSAGE);
+            Double amount = Double.valueOf(response);
+            if (response != null || amount <= 0) {
+                JOptionPane.showMessageDialog(null, response + " has been successffuly added to your account.", "Successful Transaction", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Something went worng! Could not deposit " + response + " to your aacount.", "Failed Transaction", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+            Transaction transaction = master.deposit(account.getId(), amount);
             String balance = Double.toString(transaction.getCurrentBalance());
             balanceLabel.setText(balance);
         } catch (RemoteException ex) {
@@ -174,7 +184,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void withdrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawBtnActionPerformed
         try {
-            Transaction transaction = master.withdraw(account.getId(), 60);
+            String response = JOptionPane.showInputDialog(null, "Enter the amount you wish to deposit:", "Amount", JOptionPane.QUESTION_MESSAGE);
+            Double amount = Double.valueOf(response);
+            if (response != null || amount <= 0) {
+                JOptionPane.showMessageDialog(null, response + " has been successffuly added to your account.", "Successful Transaction", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Something went worng! Could not deposit " + response + " to your aacount.", "Failed Transaction", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            Transaction transaction = master.withdraw(account.getId(), amount);
             String balance = Double.toString(transaction.getCurrentBalance());
             balanceLabel.setText(balance);
         } catch (RemoteException ex) {

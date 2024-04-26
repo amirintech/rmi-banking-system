@@ -30,10 +30,10 @@ public class WorkerServer {
 
     public Account createAccount(String name, String email, String password) {
         Account account = new Account(name, email, password, id);
-        clients.put(account.getEmail(), account);
+        clients.put(account.getId(), account);
         databaseService.addAccount(id, account);
 
-        return Account.getSecure(account);
+        return account.getSecure(account);
     }
 
     public Transaction deposit(String id, double amount) throws InvalidAmountException {

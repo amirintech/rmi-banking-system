@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class Account implements Serializable {
-    private final String id;
-    private final String name;
-    private final String email;
+    private String id;
+    private String name;
+    private String email;
     private final String password;
     private double balance;
 
@@ -23,8 +23,13 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public static Account getSecure(Account account) {
-        return new Account(account.getName(), account.getEmail(), "", account.getId());
+    public Account getSecure(Account account) {
+        Account secure = new Account();
+        secure.id = id;
+        secure.name = name;
+        secure.email = email;
+
+        return secure;
     }
 
     public void deposit(double amount) throws InvalidAmountException {
