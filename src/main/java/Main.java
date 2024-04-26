@@ -14,12 +14,12 @@ public class Main {
         List<String> westBranches = Arrays.stream(BranchesService.WestBranches.values())
                 .map(BranchesService.WestBranches::getName)
                 .toList();
-        LocalMaster westLocalMaster = new LocalMaster(westBranches, DatabaseService.DBLocation.WEST);
+        LocalMaster westLocalMaster = new LocalMaster(westBranches, DatabaseService.DBLocation.WEST, DatabaseService.DBLocation.EAST);
 
         List<String> eastBranches = Arrays.stream(BranchesService.EastBranches.values())
                 .map(BranchesService.EastBranches::getName)
                 .toList();
-        LocalMaster eastLocalMaster = new LocalMaster(eastBranches, DatabaseService.DBLocation.EAST);
+        LocalMaster eastLocalMaster = new LocalMaster(eastBranches, DatabaseService.DBLocation.EAST, DatabaseService.DBLocation.WEST);
 
         Registry registry = LocateRegistry.createRegistry(1099);
         registry.bind("WestLocalMaster", westLocalMaster);

@@ -14,10 +14,10 @@ import java.util.Map;
 public class LocalMaster extends UnicastRemoteObject implements rmi.LocalMaster {
     private final Map<String, WorkerServer> workers;
 
-    public LocalMaster(List<String> branches, DatabaseService.DBLocation dbLocation) throws RemoteException {
+    public LocalMaster(List<String> branches, DatabaseService.DBLocation dbLocation, DatabaseService.DBLocation dbReplicaLocation) throws RemoteException {
         this.workers = new HashMap<>();
 
-        DatabaseService databaseService = new DatabaseService(dbLocation);
+        DatabaseService databaseService = new DatabaseService(dbLocation, dbReplicaLocation);
         for (String branch : branches) {
             WorkerServer workerServer = new WorkerServer(branch, databaseService);
             this.workers.put(workerServer.getId(), workerServer);

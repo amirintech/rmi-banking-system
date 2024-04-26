@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ffdb8391-64f3-4447-999f-01509fed0552" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/WorkerServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/WorkerServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frontend/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frontend/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frontend/SignUpFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frontend/SignUpFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/east_db.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/east_db.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/west_db.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/west_db.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/backend/LocalMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/LocalMaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/DatabaseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +100,7 @@
       <workItem from="1714042076167" duration="5775000" />
       <workItem from="1714059463789" duration="173000" />
       <workItem from="1714070527763" duration="5887000" />
-      <workItem from="1714129414268" duration="2229000" />
+      <workItem from="1714129414268" duration="4166000" />
     </task>
     <servers />
   </component>

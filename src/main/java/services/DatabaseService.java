@@ -10,17 +10,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DatabaseService {
+    private final static String basePath = "src/main/resources/";
     private final Gson gson;
     private final String path;
+    private final String replicaPath;
     private Map<String, Map<String, Account>> accounts;
     private Map<String, Map<String, Transaction>> transactions;
 
-    public DatabaseService(DBLocation location) {
-        this.path = "src/main/resources/" + location.getValue();
+    public DatabaseService(DBLocation location, DBLocation replica) {
+        this.path = basePath + location.getValue();
+        this.replicaPath = basePath + replica.getValue();
         this.gson = new Gson();
         this.accounts = new HashMap<>();
         this.transactions = new HashMap<>();
@@ -50,12 +52,21 @@ public class DatabaseService {
         data.put("accounts", accounts);
         data.put("transactions", transactions);
 
+        // Write to main file
         try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(data, writer);
         } catch (IOException e) {
-            System.out.println("Could not write to the file: " + e.getMessage());
+            System.out.println("Could not write to the main file: " + e.getMessage());
+        }
+
+        // Write to replica file
+        try (FileWriter replicaWriter = new FileWriter(replicaPath)) {
+            gson.toJson(data, replicaWriter);
+        } catch (IOException e) {
+            System.out.println("Could not write to the replica file: " + e.getMessage());
         }
     }
+
 
     public Map<String, Account> getWorkerAccounts(String id) {
         Map<String, Account> accounts = this.accounts.get(id);
