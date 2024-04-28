@@ -5,21 +5,24 @@ import models.Account;
 import models.Transaction;
 import services.DatabaseService;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Map;
 
-public class WorkerServer {
+public class WorkerServer extends UnicastRemoteObject implements rmi.WorkerServer {
     private final String id;
     private final Map<String, Account> clients;
     private final DatabaseService databaseService;
 
-    public WorkerServer(String name, DatabaseService databaseService) {
+    public WorkerServer(String name, DatabaseService databaseService) throws RemoteException {
         this.id = name;
         this.databaseService = databaseService;
         this.clients = databaseService.getWorkerAccounts(name);
     }
 
-    public Account login(String email, String password) {
+    @Override
+    public Account login(String email, String password) throws RemoteException {
         Account account = null;
         for (var acc : clients.values())
             if (acc.getEmail().equals(email) && acc.getPassword().equals(password))
@@ -28,7 +31,8 @@ public class WorkerServer {
         return account;
     }
 
-    public Account createAccount(String name, String email, String password) {
+    @Override
+    public Account createAccount(String name, String email, String password) throws RemoteException {
         Account account = new Account(name, email, password, id);
         clients.put(account.getId(), account);
         databaseService.addAccount(id, account);
@@ -36,7 +40,8 @@ public class WorkerServer {
         return account.getSecure(account);
     }
 
-    public Transaction deposit(String id, double amount) throws InvalidAmountException {
+    @Override
+    public Transaction deposit(String id, double amount) throws RemoteException, InvalidAmountException {
         Account account = clients.get(id);
         account.deposit(amount);
         Transaction transaction = new Transaction(
@@ -49,7 +54,8 @@ public class WorkerServer {
         return transaction;
     }
 
-    public Transaction withdraw(String id, double amount) throws InvalidAmountException {
+    @Override
+    public Transaction withdraw(String id, double amount) throws RemoteException, InvalidAmountException {
         Account account = clients.get(id);
         account.withdraw(amount);
         Transaction transaction = new Transaction(
@@ -62,7 +68,8 @@ public class WorkerServer {
         return transaction;
     }
 
-    public List<Transaction> inquiry(String clientId) {
+    @Override
+    public List<Transaction> inquiry(String clientId) throws RemoteException {
         return databaseService
                 .getAccountTransactions(clientId)
                 .values()

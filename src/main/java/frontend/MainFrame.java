@@ -1,5 +1,6 @@
 package frontend;
 
+import exceptions.InvalidAmountException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -175,9 +176,11 @@ public class MainFrame extends javax.swing.JFrame {
             
             
             Transaction transaction = master.deposit(account.getId(), amount);
+            this.account.deposit(transaction.getAmount());
             String balance = Double.toString(transaction.getCurrentBalance());
             balanceLabel.setText(balance);
-        } catch (RemoteException ex) {
+        } catch (RemoteException | InvalidAmountException ex) {
+            JOptionPane.showMessageDialog(null, "Something went worng! Could not deposit amount to your aacount.", "Failed Transaction", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_depositBtnActionPerformed
@@ -193,9 +196,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
             
             Transaction transaction = master.withdraw(account.getId(), amount);
+            this.account.withdraw(transaction.getAmount());
             String balance = Double.toString(transaction.getCurrentBalance());
             balanceLabel.setText(balance);
-        } catch (RemoteException ex) {
+        } catch (RemoteException | InvalidAmountException ex) {
+            JOptionPane.showMessageDialog(null, "Something went worng! Could not withdraw amount to your aacount.", "Failed Transaction", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_withdrawBtnActionPerformed
